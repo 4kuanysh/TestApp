@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TestApp</string>
+    <string name="has_issues">Has issues</string>
+</resources>

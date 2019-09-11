@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="viewModel"
+                type="com.example.testapp.ui.screens.MainViewModel" />
+        <variable
+                name="rates"
+                type="com.example.testapp.uimodels.Rate.Rates" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.example.testapp.ui.screens.MainActivity">
+
+        <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:indeterminate="true"
+                android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toTopOf="@+id/refresh_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+                app:layout_constraintBottom_toTopOf="@+id/refresh_button"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="top">
+            <TextView
+                    android:id="@+id/TitleUSD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="26dp"
+                    android:text="USD:"
+            />
+            <TextView
+                    android:id="@+id/USD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="@{rates.USD}"
+                    android:layout_margin="20dp"
+            />
+        </LinearLayout>
+
+
+        <Button
+                android:id="@+id/refresh_button"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:onClick="@{() -> viewModel.loadRates()}"
+                android:clickable="@{viewModel.isLoading ? false : true}"
+                android:text="Refresh"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
